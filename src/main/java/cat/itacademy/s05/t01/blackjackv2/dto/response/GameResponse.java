@@ -10,7 +10,6 @@ public record GameResponse (
         Long playerId,
         HandResponse playerHand,
         HandResponse dealerHand,
-        GameStatus status,
         GameResult result
 
 ){ }
