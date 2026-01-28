@@ -1,9 +1,11 @@
-package cat.itacademy.s05.t01.blackjackv2.service;
+package cat.itacademy.s05.t01.blackjackv2.service.game;
 
 import cat.itacademy.s05.t01.blackjackv2.exceptions.GameNotFoundException;
 import cat.itacademy.s05.t01.blackjackv2.exceptions.PlayerNotFoundException;
 import cat.itacademy.s05.t01.blackjackv2.model.Game;
+import cat.itacademy.s05.t01.blackjackv2.model.Player;
 import cat.itacademy.s05.t01.blackjackv2.model.enums.GameAction;
+import cat.itacademy.s05.t01.blackjackv2.model.enums.GameResult;
 import cat.itacademy.s05.t01.blackjackv2.model.enums.GameStatus;
 import cat.itacademy.s05.t01.blackjackv2.repository.GameRepository;
 import cat.itacademy.s05.t01.blackjackv2.repository.PlayerRepository;
@@ -58,17 +60,37 @@ public class GameServiceImpl implements GameService{
 
                     if (game.getStatus() == GameStatus.FINISHED) {
                         game.determineWinner();
+
+                        return updatePlayerStats(game)
+                                .flatMap(savedPlayer-> gameRepository.save(game));
                     }
 
                     return gameRepository.save(game);
+
                 });
     }
+
+
+    private Mono<Player> updatePlayerStats(Game game) {
+        return playerRepository.findById(game.getPlayerId())
+                .switchIfEmpty(Mono.error(new PlayerNotFoundException(game.getPlayerId())))
+                .flatMap( player -> {
+                    player.setGamesPlayed(player.getGamesPlayed() + 1);
+                    if (game.getResult() == GameResult.PLAYER_WINS) {
+                        player.setGamesWon(player.getGamesWon() + 1);
+                    }
+                    return playerRepository.save(player);
+                });
+
+    }
+
+
 
     @Override
     public Mono<Void> deleteGame(String gameId) {
         return gameRepository.findById(gameId)
                 .switchIfEmpty(Mono.error(new GameNotFoundException(gameId)))
-                .flatMap(game -> gameRepository.delete(game));
+                .flatMap(gameRepository::delete);
     }
 
 

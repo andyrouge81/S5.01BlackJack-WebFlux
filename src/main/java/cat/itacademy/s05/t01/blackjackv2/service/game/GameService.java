@@ -1,7 +1,8 @@
-package cat.itacademy.s05.t01.blackjackv2.service;
+package cat.itacademy.s05.t01.blackjackv2.service.game;
 
 import cat.itacademy.s05.t01.blackjackv2.model.Game;
 import cat.itacademy.s05.t01.blackjackv2.model.enums.GameAction;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface GameService {
@@ -13,8 +14,6 @@ public interface GameService {
     Mono<Game> play(String gameId, GameAction action);
 
     Mono<Void> deleteGame(String gameId);
-
-
 
 
 }
