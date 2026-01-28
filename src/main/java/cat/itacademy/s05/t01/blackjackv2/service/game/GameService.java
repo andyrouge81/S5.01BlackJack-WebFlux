@@ -1,6 +1,7 @@
 package cat.itacademy.s05.t01.blackjackv2.service;
 
 import cat.itacademy.s05.t01.blackjackv2.model.Game;
+import cat.itacademy.s05.t01.blackjackv2.model.enums.GameAction;
 import reactor.core.publisher.Mono;
 
 public interface GameService {
@@ -9,5 +10,11 @@ public interface GameService {
 
     Mono<Game> findGameById(String gameId);
 
-    Mono<Game> play(String gameId);
+    Mono<Game> play(String gameId, GameAction action);
+
+    Mono<Void> deleteGame(String gameId);
+
+
+
+
 }

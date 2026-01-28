@@ -1,0 +1,43 @@
+package cat.itacademy.s05.t01.blackjackv2.service;
+
+import cat.itacademy.s05.t01.blackjackv2.exceptions.PlayerNotFoundException;
+import cat.itacademy.s05.t01.blackjackv2.model.Player;
+import cat.itacademy.s05.t01.blackjackv2.model.enums.Role;
+import cat.itacademy.s05.t01.blackjackv2.repository.PlayerRepository;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@Service
+public class PlayerServiceImpl implements  PlayerService{
+
+    private final PlayerRepository playerRepository;
+
+    public PlayerServiceImpl(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
+
+    @Override
+    public Mono<Player> createPlayer(String playerName, Role role) {
+        Player player = new Player(playerName, role);
+        return playerRepository.save(player);
+    }
+
+
+    @Override
+    public Mono<Player> updatePlayerName (Long playerId, String playerName) {
+        return playerRepository.findById(playerId)
+                .switchIfEmpty(Mono.error(new PlayerNotFoundException(playerId)))
+                .flatMap(player -> {
+                    player.setPlayerName(playerName);
+                    return playerRepository.save(player);
+                });
+    }
+
+    @Override
+    public Flux<Player> getRanking() {
+        return playerRepository.findAllByOrderByGamesWonDesc();
+    }
+
+
+}
