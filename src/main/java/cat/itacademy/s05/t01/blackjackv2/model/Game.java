@@ -24,7 +24,10 @@ public class Game {
 
     private Hand playerHand;
     private Hand dealerHand;
+
+    @JsonIgnore
     private Deck deck;
+
     private GameStatus status;
     private GameResult result;
 
@@ -37,18 +40,19 @@ public class Game {
     }
 
     public void startGame() {
-        this.status = GameStatus.IN_PROGRESS;
+        deck.shuffleCards();
 
-        playerHand.addCard(deck.drawCard());
-        playerHand.addCard(deck.drawCard());
+        playerHit();
+        dealerPlay();
+        playerHit();
+        dealerPlay();
 
-        dealerHand.addCard(deck.drawCard());
-        dealerHand.addCard(deck.drawCard());
-
-        //initial isBlackJack
 
         if(playerHand.isBlakJack() || dealerHand.isBlakJack()) {
             this.status = GameStatus.FINISHED;
+            determineWinner();
+        } else {
+            status = GameStatus.IN_PROGRESS;
         }
     }
 
@@ -68,13 +72,7 @@ public class Game {
             status = GameStatus.FINISHED;
         }
     }
-    //Stand
-    public void playerStand() {
-        if(status != GameStatus.IN_PROGRESS) {
-            return;
-        }
 
-    }
 
     public void dealerPlay() {
         if(status != GameStatus.IN_PROGRESS){
