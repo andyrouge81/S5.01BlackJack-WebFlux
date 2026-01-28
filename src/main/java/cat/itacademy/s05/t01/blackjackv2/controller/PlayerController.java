@@ -28,7 +28,7 @@ public class PlayerController {
     @PostMapping("/player")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<PlayerResponse> createPlayer(@RequestBody CreatePlayerRequest request) {
-        return playerService.createPlayer(request.playerName(), request.role())
+        return playerService.createPlayer(request.playerName())
                 .map(playerMapper::toResponse);
     }
     @PutMapping("/player/{playerId}")

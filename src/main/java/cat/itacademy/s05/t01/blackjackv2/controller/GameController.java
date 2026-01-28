@@ -4,6 +4,7 @@ import cat.itacademy.s05.t01.blackjackv2.dto.request.CreateGameRequest;
 import cat.itacademy.s05.t01.blackjackv2.dto.request.PlayRequest;
 import cat.itacademy.s05.t01.blackjackv2.dto.response.GameResponse;
 import cat.itacademy.s05.t01.blackjackv2.mapper.GameMapper;
+import cat.itacademy.s05.t01.blackjackv2.service.game.GameService;
 import cat.itacademy.s05.t01.blackjackv2.service.game.GameServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/game")
 public class GameController {
 
-    private final GameServiceImpl gameService;
+    private final GameService gameService;
     private final GameMapper mapper;
 
     public GameController(GameServiceImpl gameService, GameMapper mapper) {
