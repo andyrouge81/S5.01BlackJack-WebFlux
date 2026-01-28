@@ -49,7 +49,6 @@ class GameControllerTest {
                 1L,
                 playerHand,
                 dealerHand,
-                game.getStatus(),
                 game.getResult()
         );
 
@@ -83,7 +82,6 @@ class GameControllerTest {
                 1L,
                 playerHand,
                 dealerHand,
-                game.getStatus(),
                 game.getResult()
         );
 
@@ -129,7 +127,6 @@ class GameControllerTest {
                 1L,
                 playerHand,
                 dealerHand,
-                game.getStatus(),
                 game.getResult()
         );
 

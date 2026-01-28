@@ -40,7 +40,7 @@ class PlayerServiceImplTest {
         String gameId = "game123";
 
 
-        Player player = new Player("Andy", null);
+        Player player = new Player("Andy");
         player.setId(playerId);
         player.setGamesPlayed(2);
         player.setGamesWon(1);
@@ -52,10 +52,7 @@ class PlayerServiceImplTest {
 
 
         Game finishedGame = new Game(playerId) {
-            @Override
-            public void playerStand() {
-                setStatus(GameStatus.FINISHED);
-            }
+
 
             @Override
             public void dealerPlay() {
@@ -94,17 +91,14 @@ class PlayerServiceImplTest {
         String gameId = "game456";
 
 
-        Player player = new Player("Andy", null);
+        Player player = new Player("Andy");
         player.setId(playerId);
         player.setGamesPlayed(5);
         player.setGamesWon(2);
 
 
         Game finishedGame = new Game(playerId) {
-            @Override
-            public void playerStand() {
-                setStatus(GameStatus.FINISHED);
-            }
+
 
             @Override
             public void dealerPlay() {
@@ -147,10 +141,7 @@ class PlayerServiceImplTest {
         String gameId = "game789";
 
         Game finishedGame = new Game(playerId) {
-            @Override
-            public void playerStand() {
-                setStatus(GameStatus.FINISHED);
-            }
+
 
             @Override
             public void dealerPlay() {

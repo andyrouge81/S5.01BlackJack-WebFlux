@@ -34,13 +34,12 @@ class PlayerControllerTest {
 
     @Test
     void updatePlayerName_shouldReturnUpdatedPlayer() {
-        Player player = new Player("Alex", null);
+        Player player = new Player("Alex");
         player.setId(1L);
 
         PlayerResponse dto = new PlayerResponse(
                 1L,
                 "AlexUpdated",
-                null,
                 null,
                 null
         );
@@ -77,16 +76,16 @@ class PlayerControllerTest {
 
     @Test
     void getRanking_shouldReturnPlayers() {
-        Player p1 = new Player("Alice", null);
+        Player p1 = new Player("Alice");
         p1.setId(1L);
         p1.setGamesWon(5);
 
-        Player p2 = new Player("Bob", null);
+        Player p2 = new Player("Bob");
         p2.setId(2L);
         p2.setGamesWon(2);
 
-        PlayerResponse dto1 = new PlayerResponse(1L, "Alice", null, null, 5);
-        PlayerResponse dto2 = new PlayerResponse(2L, "Bob", null, null, 2);
+        PlayerResponse dto1 = new PlayerResponse(1L, "Alice", null,  5);
+        PlayerResponse dto2 = new PlayerResponse(2L, "Bob", null,  2);
 
         when(playerService.getRanking()).thenReturn(Flux.just(p1, p2));
         when(playerMapper.toResponse(p1)).thenReturn(dto1);
