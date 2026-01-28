@@ -3,6 +3,7 @@ package cat.itacademy.s05.t01.blackjackv2.model;
 
 import cat.itacademy.s05.t01.blackjackv2.model.enums.GameResult;
 import cat.itacademy.s05.t01.blackjackv2.model.enums.GameStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ public class Game {
 
     public Game(Long playerId) {
         this.playerId = playerId;
-        this.deck = new Deck();
+        this.deck = Deck.newDeck();
         this.playerHand = new Hand();
         this.dealerHand = new Hand();
         this.status = GameStatus.CREATED;
@@ -67,13 +68,12 @@ public class Game {
             status = GameStatus.FINISHED;
         }
     }
-
+    //Stand
     public void playerStand() {
         if(status != GameStatus.IN_PROGRESS) {
             return;
         }
 
-        status = GameStatus.IN_PROGRESS;
     }
 
     public void dealerPlay() {

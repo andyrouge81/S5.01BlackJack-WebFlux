@@ -27,7 +27,9 @@ public class Player {
 
     private PlayerStatus status;
 
-    private Hand hand;
+
+    private Integer gamesPlayed = 0;
+    private Integer gamesWon = 0;
 
     public Player(String playerName, Role role) {
         this.playerName = playerName;
