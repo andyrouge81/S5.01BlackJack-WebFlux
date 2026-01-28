@@ -4,7 +4,6 @@ import cat.itacademy.s05.t01.blackjackv2.dto.response.PlayerGameResponse;
 import cat.itacademy.s05.t01.blackjackv2.exceptions.PlayerNotFoundException;
 import cat.itacademy.s05.t01.blackjackv2.model.Game;
 import cat.itacademy.s05.t01.blackjackv2.model.Player;
-import cat.itacademy.s05.t01.blackjackv2.model.enums.Role;
 import cat.itacademy.s05.t01.blackjackv2.repository.GameRepository;
 import cat.itacademy.s05.t01.blackjackv2.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
@@ -23,8 +22,8 @@ public class PlayerServiceImpl implements  PlayerService{
     }
 
     @Override
-    public Mono<Player> createPlayer(String playerName, Role role) {
-        Player player = new Player(playerName, role);
+    public Mono<Player> createPlayer(String playerName) {
+        Player player = new Player(playerName);
         return playerRepository.save(player);
     }
 

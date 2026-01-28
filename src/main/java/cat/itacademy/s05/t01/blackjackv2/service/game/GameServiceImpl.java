@@ -30,6 +30,9 @@ public class GameServiceImpl implements GameService{
                 .flatMap(player->{
                     Game game = new Game(playerId);
                     game.startGame();
+                    if(game.getStatus() == GameStatus.FINISHED) {
+                        game.determineWinner();
+                    }
                     return gameRepository.save(game);
                 });
     }
@@ -52,10 +55,8 @@ public class GameServiceImpl implements GameService{
 
                     switch (action) {
                         case HIT -> game.playerHit();
-                        case STAND -> {
-                            game.playerStand();
-                            game.dealerPlay();
-                        }
+                        case STAND -> game.dealerPlay();
+
                     }
 
                     if (game.getStatus() == GameStatus.FINISHED) {
