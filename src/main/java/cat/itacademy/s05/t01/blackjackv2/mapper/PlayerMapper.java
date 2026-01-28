@@ -11,7 +11,6 @@ public class PlayerMapper {
         return new PlayerResponse(
                 player.getId(),
                 player.getPlayerName(),
-                player.getRole(),
                 player.getGamesPlayed(),
                 player.getGamesWon()
         );

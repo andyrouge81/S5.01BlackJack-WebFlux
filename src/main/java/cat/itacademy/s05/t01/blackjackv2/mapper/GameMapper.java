@@ -21,7 +21,6 @@ public class GameMapper {
                 game.getPlayerId(),
                 toHandResponse(game.getPlayerHand()),
                 toHandResponse(game.getDealerHand()),
-                game.getStatus(),
                 game.getResult()
         );
     }
