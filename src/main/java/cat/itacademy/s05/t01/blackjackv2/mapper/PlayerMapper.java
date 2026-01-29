@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class PlayerMapper {
 
     public PlayerResponse toResponse(Player player) {
+
         return new PlayerResponse(
                 player.getId(),
                 player.getPlayerName(),

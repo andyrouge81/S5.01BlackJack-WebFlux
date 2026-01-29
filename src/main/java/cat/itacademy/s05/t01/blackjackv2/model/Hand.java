@@ -47,9 +47,6 @@ public class Hand {
 
     }
 
-    public int getCardCount() {
-        return cards.size();
 
-    }
 }
 

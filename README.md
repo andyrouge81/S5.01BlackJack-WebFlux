@@ -126,7 +126,7 @@ Mapping handled by:
 
 Swagger UI available at:
 
-[Swagger UI](http://localhost:8081/swagger-ui.html)
+[Swagger web](https://swagger.io)
 
 ---
 
@@ -138,13 +138,16 @@ Swagger UI available at:
     ```
 
 ### 2️⃣ Start MongoDB
+
     ```bash
     docker run -d \
-  --name mongo \
-  --network blackjack-net \
-    mongo:7
+    --name mongo \
+    --network blackjack-net \
+      mongo:7
     ```
+
 ### 3️⃣ Start MySQL
+
 ```bash
     docker run -d \
     --name mysql \
@@ -157,6 +160,7 @@ Swagger UI available at:
    ```
 
 ### 4️⃣ Run the API
+
 ```bash
 
 docker run -d \
@@ -167,3 +171,6 @@ docker run -d \
 andyrouge/blackjack-api:latest
 ```
 
+### 5️⃣ Test BlackJack game with Swagger 
+
+[Swagger UI](http://localhost:8081/swagger-ui.html)
