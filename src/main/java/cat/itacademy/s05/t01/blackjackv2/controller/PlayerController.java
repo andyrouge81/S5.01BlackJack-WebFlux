@@ -7,6 +7,7 @@ import cat.itacademy.s05.t01.blackjackv2.dto.response.PlayerResponse;
 import cat.itacademy.s05.t01.blackjackv2.mapper.PlayerMapper;
 import cat.itacademy.s05.t01.blackjackv2.service.player.PlayerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -27,13 +28,13 @@ public class PlayerController {
     }
     @PostMapping("/player")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<PlayerResponse> createPlayer(@RequestBody CreatePlayerRequest request) {
+    public Mono<PlayerResponse> createPlayer(@Valid @RequestBody CreatePlayerRequest request) {
         return playerService.createPlayer(request.playerName())
                 .map(playerMapper::toResponse);
     }
     @PutMapping("/player/{playerId}")
     public Mono<PlayerResponse> updatePlayerName(@PathVariable Long playerId,
-                                         @RequestBody UpdatePlayerRequest request) {
+                                         @Valid @RequestBody UpdatePlayerRequest request) {
         return playerService.updatePlayerName(playerId, request.playerName())
                 .map(playerMapper::toResponse);
     }

@@ -88,26 +88,29 @@ public class Game {
     }
 
     public void determineWinner() {
+
+        result = calculateWinnerResult();
+    }
+
+    private GameResult calculateWinnerResult() {
         int playerValue = playerHand.calculateValue();
         int dealerValue = dealerHand.calculateValue();
 
         if(playerHand.isBust()) {
-            result = GameResult.DEALER_WINS;
-            return;
+            return GameResult.DEALER_WINS;
         }
 
         if(dealerHand.isBust()) {
-            result = GameResult.PLAYER_WINS;
-            return;
+            return GameResult.PLAYER_WINS;
         }
 
         if(playerValue > dealerValue) {
-            result = GameResult.PLAYER_WINS;
+            return GameResult.PLAYER_WINS;
         } else if (dealerValue > playerValue) {
-            result = GameResult.DEALER_WINS;
-        } else {
-            result = GameResult.DRAW;
+            return GameResult.DEALER_WINS;
         }
+        return GameResult.DRAW;
+
     }
 
 

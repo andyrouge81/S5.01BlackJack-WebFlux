@@ -39,17 +39,14 @@ class PlayerServiceImplTest {
         Long playerId = 1L;
         String gameId = "game123";
 
-
         Player player = new Player("Andy");
         player.setId(playerId);
         player.setGamesPlayed(2);
         player.setGamesWon(1);
 
-
         Game game = new Game(playerId);
         game.setId(gameId);
         game.setStatus(GameStatus.IN_PROGRESS);
-
 
         Game finishedGame = new Game(playerId) {
 
@@ -90,12 +87,10 @@ class PlayerServiceImplTest {
         Long playerId = 1L;
         String gameId = "game456";
 
-
         Player player = new Player("Andy");
         player.setId(playerId);
         player.setGamesPlayed(5);
         player.setGamesWon(2);
-
 
         Game finishedGame = new Game(playerId) {
 
@@ -125,10 +120,7 @@ class PlayerServiceImplTest {
                 .expectNextMatches(g -> g.getResult() == GameResult.DEALER_WINS)
                 .verifyComplete();
 
-
         assertEquals(6, player.getGamesPlayed());
-
-
         assertEquals(2, player.getGamesWon());
 
         verify(playerRepository).save(player);
@@ -158,8 +150,6 @@ class PlayerServiceImplTest {
         finishedGame.setStatus(GameStatus.IN_PROGRESS);
 
         when(gameRepository.findById(gameId)).thenReturn(Mono.just(finishedGame));
-
-
         when(playerRepository.findById(playerId)).thenReturn(Mono.empty());
 
         Mono<Game> resultMono = gameService.play(gameId, GameAction.STAND);

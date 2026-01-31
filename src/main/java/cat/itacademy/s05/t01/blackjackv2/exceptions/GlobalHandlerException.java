@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.support.WebExchangeBindException;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalHandlerException {
@@ -53,5 +55,20 @@ public class GlobalHandlerException {
                 Instant.now()
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(WebExchangeBindException.class)
+    public ResponseEntity<ApiError> handlerValidateError(WebExchangeBindException ex) {
+        String message = ex.getFieldErrors().stream()
+                .map(error -> error.getField() + " : "+  error.getDefaultMessage())
+                .collect(Collectors.joining(", "));
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_GATEWAY.getReasonPhrase(),
+                message,
+                Instant.now()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+
     }
 }
